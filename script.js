@@ -408,9 +408,9 @@ function initScrollIndicator() {
         
         // Clique na seta para rolar suavemente
         scrollIndicator.addEventListener('click', function() {
-            const aboutSection = document.querySelector('.about-section');
-            if (aboutSection) {
-                aboutSection.scrollIntoView({
+            const sitesSection = document.querySelector('.sites-section');
+            if (sitesSection) {
+                sitesSection.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
