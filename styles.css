@@ -1411,7 +1411,16 @@ html {
     top: 20px;
     left: 20px;
     z-index: 1000;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.logo-fixed.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
 }
 
 .logo-fixed:hover {

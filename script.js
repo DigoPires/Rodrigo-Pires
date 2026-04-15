@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar seta de rolagem
     initScrollIndicator();
     
+    // Inicializar controle da logo ao rolar
+    initLogoScroll();
+    
     // Calcular idade automaticamente
     calculateAge();
 });
@@ -508,6 +511,24 @@ function calculateAge() {
     if (ageElement) {
         ageElement.textContent = age;
     }
+}
+
+// Controlar visibilidade da logo ao rolar
+function initLogoScroll() {
+    const logoFixed = document.querySelector('.logo-fixed');
+    
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Esconder logo ao rolar para baixo, mostrar só quando voltar ao topo
+        if (scrollTop > 100) {
+            // Longe do topo - esconder logo
+            logoFixed.classList.add('hidden');
+        } else {
+            // Próximo ao topo (header) - mostrar logo
+            logoFixed.classList.remove('hidden');
+        }
+    });
 }
 
 // Console message personalizado
