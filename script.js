@@ -318,16 +318,49 @@ function initThemeToggle() {
     const themeIcon = document.getElementById('theme-icon');
     const body = document.body;
     
-    // Carregar tema salvo
+    // Verificar preferência do sistema
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Carregar tema salvo ou usar preferência do sistema
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
+    let currentTheme = savedTheme;
+    
+    // Se não há tema salvo, usar preferência do sistema
+    if (!currentTheme) {
+        currentTheme = prefersDarkScheme.matches ? 'dark' : 'light';
+        localStorage.setItem('theme', currentTheme);
+    }
+    
+    // Aplicar tema inicial
+    if (currentTheme === 'light') {
         body.classList.add('light-mode');
         themeIcon.classList.remove('fa-moon');
         themeIcon.classList.add('fa-sun');
+    } else {
+        body.classList.remove('light-mode');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
     }
     
+    // Forçar aplicação do tema em tablets/iOS
+    function forceThemeApplication() {
+        if (body.classList.contains('light-mode')) {
+            // Forçar cores claras mesmo em modo escuro do sistema
+            document.documentElement.style.setProperty('color-scheme', 'light');
+        } else {
+            // Permitir modo escuro
+            document.documentElement.style.setProperty('color-scheme', 'dark');
+        }
+    }
+    
+    // Aplicar força inicial
+    forceThemeApplication();
+    
     // Alternar tema ao clicar
-    themeToggle.addEventListener('click', function() {
+    themeToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
         body.classList.toggle('light-mode');
         
         if (body.classList.contains('light-mode')) {
@@ -340,11 +373,39 @@ function initThemeToggle() {
             localStorage.setItem('theme', 'dark');
         }
         
+        // Forçar aplicação do tema
+        forceThemeApplication();
+        
         // Adicionar animação de rotação
         themeToggle.style.transform = 'scale(0.8) rotate(180deg)';
         setTimeout(() => {
             themeToggle.style.transform = '';
         }, 300);
+        
+        // Aplicar tema suavemente sem reflow
+        setTimeout(() => {
+            // Força atualização de estilos sem recarregar página
+            body.style.transition = 'none';
+            body.offsetHeight; // Força reflow mínimo
+            body.style.transition = '';
+        }, 10);
+    });
+    
+    // Escutar mudanças na preferência do sistema
+    prefersDarkScheme.addEventListener('change', (e) => {
+        // Só mudar se não houver tema salvo
+        if (!localStorage.getItem('theme')) {
+            if (e.matches) {
+                body.classList.remove('light-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                body.classList.add('light-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+            forceThemeApplication();
+        }
     });
 }
 

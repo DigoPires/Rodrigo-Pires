@@ -1382,6 +1382,29 @@ html {
     color: white;
 }
 
+/* Prevenir sublinhado automático do iOS para datas e telefones */
+.contact-item span,
+.info-item span,
+.period,
+.contact-info-footer p,
+.course-item span,
+.role-period,
+.experience-details span {
+    color: inherit !important;
+    text-decoration: none !important;
+    -webkit-text-decoration-skip: none !important;
+    text-decoration-skip: none !important;
+}
+
+/* Especificamente para números de telefone e datas */
+.contact-item span:nth-child(2),
+.info-item div span:nth-child(2),
+.contact-info-footer p {
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 /* Logo fixa no canto superior esquerdo */
 .logo-fixed {
     position: fixed;
@@ -1503,8 +1526,13 @@ body.light-mode .hero-section .social-link {
     color: #ffffff !important;
 }
 
+/* Manter ícones do header roxos em ambos os modos */
+.hero-section .contact-item i {
+    color: var(--accent-color) !important;
+}
+
 body.light-mode .hero-section .contact-item i {
-    color: #a78bfa !important;
+    color: var(--accent-color) !important;
 }
 
 body.light-mode .footer {
@@ -1523,6 +1551,14 @@ body.light-mode .theme-toggle:hover {
     color: white;
 }
 
+/* Manter cor roxa das datas do Senac em ambos os modos */
+.course-item .period {
+    color: var(--primary-color) !important;
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
 
 /* Scrollbar personalizada */
 ::-webkit-scrollbar {
