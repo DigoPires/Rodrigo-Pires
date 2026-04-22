@@ -1396,13 +1396,13 @@ html {
     text-decoration-skip: none !important;
 }
 
-/* Especificamente para números de telefone e datas */
+/* Especificamente para números de telefone e datas - permitir cópia */
 .contact-item span:nth-child(2),
 .info-item div span:nth-child(2),
 .contact-info-footer p {
-    pointer-events: none;
-    -webkit-user-select: none;
-    user-select: none;
+    -webkit-user-select: text;
+    user-select: text;
+    pointer-events: auto;
 }
 
 /* Logo fixa no canto superior esquerdo */
