@@ -24,8 +24,8 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(139, 92, 246, 0.3);
-    border-radius: 50px;
-    padding: 12px 24px;
+    border-radius: 30px;
+    padding: 8px 10px;
     box-shadow: 
         0 8px 32px rgba(15, 12, 41, 0.4),
         0 4px 16px rgba(139, 92, 246, 0.2),
@@ -34,7 +34,6 @@
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    max-width: 800px;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -359,12 +358,6 @@
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Acessibilidade */
-.nav-link:focus {
-    outline: 2px solid #8b5cf6;
-    outline-offset: 2px;
 }
 
 body.light-mode .nav-container{
