@@ -367,15 +367,6 @@ body.light-mode .nav-container {
         inset 0 1px 0 rgba(139, 92, 246, 0.2);
 }
 
-body.light-mode .nav-menu {
-    background: linear-gradient(135deg, #412c72, #5b3da1, #543b91);
-    border: 1px solid rgba(139, 92, 246, 0.2);
-    box-shadow: 
-        0 8px 32px rgba(65, 44, 114, 0.15),
-        0 4px 16px rgba(139, 92, 246, 0.1),
-        inset 0 1px 0 rgba(139, 92, 246, 0.2);
-}
-
 @media (prefers-reduced-motion: reduce) {
     .floating-nav,
     .nav-container,
