@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="date=no">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
     <title>Rodrigo Pires Figueiredo - Analista de Dados & Desenvolvedor Fullstack</title>
     
     <!-- Favicons -->
@@ -13,12 +15,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="Favicon/favicon-16x16.png">
     
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navbar-styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Header com informações pessoais -->
-    <header class="hero-section">
+    <header class="hero-section" id="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="profile-image">
@@ -70,42 +73,102 @@
         </div>
     </header>
 
+    <!-- Nav-bar Flutuante e Inteligente -->
+    <nav id="smart-nav" class="floating-nav">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <!-- <li class="nav-item">
+                    <a href="#hero" class="nav-link" data-section="hero">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li> -->
+                <li class="nav-item">
+                    <a href="#sites" class="nav-link" data-section="sites">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Serviços</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" data-section="about">
+                        <i class="fas fa-user"></i>
+                        <span>Sobre</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#experience" class="nav-link" data-section="experience">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Experiência</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link" data-section="skills">
+                        <i class="fas fa-code"></i>
+                        <span>Habilidades</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-section="contact">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contato</span>
+                    </a>
+                </li>
+            </ul>
+            <button class="nav-toggle" id="nav-toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
     <!-- Seção Sites Profissionais -->
-    <section class="sites-section">
+    <section class="sites-section" id="sites">
         <div class="container">
-            <h2 class="section-title">Precisa de um Site Profissional?</h2>
+            <h2 class="section-title">Precisa de um Site ou Automação Profissional?</h2>
             <div class="sites-content">
                 <div class="sites-text">
-                    <h3>Crio Sites Modernos e Funcionais para seu Negócio</h3>
-                    <p>Desenvolvo sites profissionais, rápidos e responsivos que ajudam seu negócio a crescer. Desde sites institucionais até portfólios e landing pages, entrego soluções modernas com design atrativo e performance otimizada.</p>
+                    <h3>Sites e Automações que Geram Resultados</h3>
+                    <p>Desenvolvo sites profissionais, rápidos e responsivos que ajudam seu negócio a crescer. Além disso, crio soluções de automação inteligentes que otimizam processos, economizam tempo e aumentam a produtividade. Desde sites institucionais até automações completas de sistemas, entrego soluções modernas com performance otimizada.</p>
                     <div class="services-grid">
                         <div class="service-item">
                             <i class="fas fa-laptop-code"></i>
                             <h4>Sites Responsivos</h4>
-                            <p>Desktop, Tablet, Mobile</p>
+                            <p>Desktop, Tablet e Mobile</p>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-robot"></i>
+                            <h4>Automação de Processos</h4>
+                            <p>Inteligente e Eficiente</p>
                         </div>
                         <div class="service-item">
                             <i class="fas fa-tachometer-alt"></i>
                             <h4>Performance</h4>
-                            <p>Otimizada e SEO</p>
+                            <p>Otimizada e Veloz</p>
                         </div>
                         <div class="service-item">
                             <i class="fas fa-palette"></i>
                             <h4>Design</h4>
                             <p>Moderno e Intuitivo</p>
                         </div>
-                        <div class="service-item">
-                            <i class="fas fa-rocket"></i>
-                            <h4>Entrega</h4>
-                            <p>Rápida e Acessível</p>
-                        </div>
                     </div>
                 </div>
                 <div class="sites-cta">
                     <div class="cta-card">
-                        <h4>Pronto para transformar sua presença online?</h4>
-                        <p>Fale comigo agora e vamos criar algo incrível juntos!</p>
-                        <a href="https://wa.me/+5511993648032?text=Olá%20Rodrigo!%20Vi%20seu%20portfólio%20e%20preciso%20de%20um%20site%20profissional.%20Podemos%20conversar?" target="_blank" class="cta-button">
+                        <div class="cta-header">
+                            <i class="fas fa-rocket"></i>
+                            <h4>Soluções Digitais</h4>
+                        </div>
+                        <p>Sites modernos e automações inteligentes para seu negócio crescer.</p>
+                        <div class="cta-features">
+                            <div class="feature-item">
+                                <i class="fas fa-laptop-code"></i>
+                                <span>Desenvolvimento Web</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-robot"></i>
+                                <span>Automação</span>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/+5511993648032?text=Olá%20Rodrigo!%20Vi%20seu%20portfólio%20e%20preciso%20de%20um%20site%20ou%20automação.%20Podemos%20conversar?" target="_blank" class="cta-button">
                             <i class="fab fa-whatsapp"></i>
                             <span>Iniciar Conversa</span>
                         </a>
@@ -116,7 +179,7 @@
     </section>
 
     <!-- Seção Sobre Mim -->
-    <section class="about-section">
+    <section class="about-section" id="about">
         <div class="container">
             <h2 class="section-title">Sobre Mim</h2>
             <div class="about-content">
@@ -174,7 +237,7 @@
     </section>
 
     <!-- Seção de Experiência Profissional -->
-    <section class="experience-section">
+    <section class="experience-section" id="experience">
         <div class="container">
             <h2 class="section-title">Experiência Profissional</h2>
             <div class="experience-timeline">
@@ -206,7 +269,7 @@
 
     
     <!-- Seção de Habilidades -->
-    <section class="skills-section">
+    <section class="skills-section" id="skills">
         <div class="container">
             <h2 class="section-title">Habilidades Técnicas</h2>
             
@@ -374,12 +437,12 @@
     </section>
 
     <!-- Seção Vamos Trabalhar Juntos -->
-    <section class="contact-section">
+    <section class="contact-section" id="contact">
         <div class="container">
             <h2 class="section-title">Vamos Trabalhar Juntos?</h2>
             <div class="contact-content">
                 <div class="contact-text">
-                    <h3>Transformo dados em decisões e ideias em soluções</h3>
+                    <h3>Transformo ideias em soluções</h3>
                     <p>Se você precisa de um profissional para análise de dados, automação de processos ou desenvolvimento de aplicações web, estou pronto para ajudar seu negócio a crescer com soluções escaláveis e práticas.</p>
                     <div class="contact-highlights">
                         <div class="highlight-item">
@@ -455,11 +518,10 @@
         <i class="fas fa-moon" id="theme-icon"></i>
     </button>
 
-    <!-- Botão voltar ao topo -->
+    <script src="navbar-script.js"></script>
+    <script src="script.js"></script>
     <button id="back-to-top" class="back-to-top" aria-label="Voltar ao topo">
         <i class="fas fa-arrow-up"></i>
     </button>
-
-    <script src="script.js"></script>
 </body>
 </html>

@@ -284,6 +284,7 @@ section {
     line-height: 1.8;
     color: var(--text-light);
     margin-bottom: 50px;
+    text-align: justify;
 }
 
 .integrated-info {
@@ -298,8 +299,12 @@ section {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--text-dark);
-    margin-bottom: 25px;
-    text-align: center;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.education-info h3 {
+    margin-bottom: 27px;
 }
 
 .info-grid {
@@ -379,6 +384,7 @@ section {
     font-weight: 600;
     color: var(--text-dark);
     margin-bottom: 5px;
+    text-align: center;
 }
 
 .position {
@@ -400,6 +406,7 @@ section {
     color: var(--text-light);
     line-height: 1.7;
     margin-bottom: 20px;
+    text-align: justify;
 }
 
 .role {
@@ -410,13 +417,13 @@ section {
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--text-dark);
-    margin-bottom: 5px;
+    margin: 0 0 8px 0;
+    text-align: center;
 }
 
 .role-period {
     color: var(--text-light);
     font-size: 0.9rem;
-    font-style: italic;
 }
 
 /* Education Section */
@@ -433,7 +440,7 @@ section {
     background: var(--dark-card);
     border-radius: 15px;
     padding: 27px;
-    text-align: center;
+    text-align: justify;
     border: 1px solid var(--border-color);
     transition: all 0.3s ease;
     height: fit-content;
@@ -441,14 +448,16 @@ section {
 
 .education-item:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-purple);
 }
 
 .education-header h4 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-dark);
-    margin-bottom: 20px;
+    margin: 0 0 20px 0;
+    text-align: center;
 }
 
 .course-item {
@@ -488,29 +497,44 @@ section {
     min-width: 0;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-align: justify;
 }
 
 /* Skills Section */
 .skills-section {
     background: var(--dark-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.skills-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, var(--primary-color) 0%, transparent 50%);
+    opacity: 0.05;
+    z-index: 0;
 }
 
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 .skill-category {
-    background: var(--dark-card);
+    background: linear-gradient(135deg, var(--dark-card), rgba(139, 92, 246, 0.1));
     border-radius: 20px;
-    padding: 40px;
+    padding: 35px;
     text-align: center;
     box-shadow: var(--shadow-md);
-    transition: all 0.4s ease;
-    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
     position: relative;
     overflow: hidden;
 }
@@ -528,12 +552,8 @@ section {
     z-index: 0;
 }
 
-.skill-category:hover::before {
-    opacity: 0.1;
-}
-
 .skill-category:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px) scale(1.02);
     box-shadow: var(--shadow-xl), var(--shadow-purple);
     border-color: var(--primary-color);
 }
@@ -544,38 +564,63 @@ section {
 }
 
 .skill-category h3 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 600;
     color: var(--text-dark);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .skill-category i {
+    font-size: 1.5rem;
     color: var(--primary-color);
+    filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3));
 }
 
 .skill-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
 }
 
 .skill-tag {
-    background: var(--dark-surface);
+    background: rgba(139, 92, 246, 0.1);
     color: var(--text-dark);
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-size: 0.95rem;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
     font-weight: 500;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(139, 92, 246, 0.3);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+}
+
+.skill-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.skill-tag:hover::before {
+    left: 0;
+}
+
+.skill-tag:hover {
+    color: white;
+    transform: scale(1.05);
+    border-color: var(--primary-color);
+    background: rgba(139, 92, 246, 0.2);
 }
 
 .skill-tag::before {
@@ -609,6 +654,7 @@ section {
 .proficiency span {
     font-weight: 500;
     color: var(--text-light);
+    text-align: justify;
 }
 
 .proficiency-bar {
@@ -665,6 +711,7 @@ section {
     color: var(--text-dark);
     margin-bottom: 20px;
     line-height: 1.2;
+    text-align: justify;
 }
 
 .sites-text p {
@@ -672,6 +719,7 @@ section {
     color: var(--text-light);
     margin-bottom: 40px;
     line-height: 1.6;
+    text-align: justify;
 }
 
 .services-grid {
@@ -706,12 +754,14 @@ section {
     font-weight: 600;
     color: var(--text-dark);
     margin-bottom: 8px;
+    text-align: center;
 }
 
 .service-item p {
     color: var(--text-light);
     font-size: 0.9rem;
     margin: 0;
+    text-align: center;
 }
 
 .sites-cta {
@@ -727,10 +777,72 @@ section {
     text-align: center;
     color: white;
     box-shadow: var(--shadow-xl), var(--shadow-purple);
-    max-width: 350px;
+    max-width: 400px;
     position: relative;
     overflow: hidden;
     animation: card-float 3s ease-in-out infinite;
+}
+
+.cta-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cta-header i {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cta-header h4 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.cta-features {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.feature-item i {
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    width: 30px;
+}
+
+.feature-item span {
+    color: white;
+    font-weight: 500;
+    font-size: 0.95rem;
 }
 
 .cta-card::before {
@@ -770,6 +882,7 @@ section {
     position: relative;
     z-index: 1;
     animation: text-pulse 2s ease-in-out infinite;
+    text-align: center;
 }
 
 .cta-card p {
@@ -796,6 +909,7 @@ section {
     position: relative;
     z-index: 1;
     animation: text-pulse 2s ease-in-out infinite 1s;
+    text-align: justify;
 }
 
 .cta-button:hover {
@@ -898,6 +1012,7 @@ section {
     color: var(--text-dark);
     margin-bottom: 20px;
     line-height: 1.2;
+    text-align: justify;
 }
 
 .contact-text p {
@@ -905,6 +1020,7 @@ section {
     color: var(--text-light);
     margin-bottom: 40px;
     line-height: 1.6;
+    text-align: justify;
 }
 
 .contact-highlights {
@@ -1042,6 +1158,7 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 20px;
 }
 
@@ -1056,12 +1173,12 @@ section {
     justify-content: center;
     width: 45px;
     height: 45px;
-    background: var(--dark-card);
+    background: #252525;
     border-radius: 50%;
-    color: var(--text-light);
+    color: #a1a1aa;
     text-decoration: none;
     transition: all 0.3s ease;
-    border: 1px solid var(--border-color);
+    border: 1px solid #27272a;
 }
 
 .footer-social a:hover {
@@ -1114,6 +1231,8 @@ section {
     .education-item {
         padding: 25px;
     }
+
+    
     
     .integrated-info {
         grid-template-columns: 1fr;
@@ -1149,6 +1268,10 @@ section {
         gap: 15px;
     }
     
+    .service-item p {
+        display: none;
+    }
+    
     .sites-text h3 {
         font-size: 1.8rem;
     }
@@ -1159,7 +1282,7 @@ section {
     
     .cta-card {
         padding: 30px;
-        max-width: 280px;
+        max-width: 400px;
     }
     
     .contact-text h3 {
@@ -1177,6 +1300,10 @@ section {
     .contact-btn {
         padding: 15px 20px;
         font-size: 1rem;
+    }
+
+    .footer{
+        padding-bottom: 80px;
     }
 }
 
@@ -1876,24 +2003,33 @@ body:not(.light-mode) .category-title i {
 
 /* Responsividade para Habilidades */
 @media (max-width: 768px) {
-    .programming-languages {
-        grid-template-columns: 1fr;
+    .programming-language.skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .languages-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
     }
     
     .tech-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
     }
     
     .bi-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
     }
     
     .automation-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
     }
     
     .dev-tools-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
     }
     
     .lang-card {
