@@ -176,8 +176,19 @@ class SmartNavbar {
                 }
             });
             
-            // Não fechar menu ao clicar fora - usuário decide quando fechar
-            // Menu permanece aberto até usuário clicar no toggle novamente
+            // Fechar menu ao clicar fora - comportamento padrão esperado
+            document.addEventListener('click', (e) => {
+                if (this.navMenu.classList.contains('active') && 
+                    !this.navMenu.contains(e.target) && 
+                    !this.navToggle.contains(e.target)) {
+                    this.navMenu.classList.remove('active');
+                    this.navToggle.classList.remove('active');
+                    this.navMenu.style.display = 'none';
+                    const icon = this.navToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
         }
     }
     
