@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Calcular idade automaticamente
     calculateAge();
+    
+    // Inicializar carrossel de projetos
+    initProjectsCarousel();
 });
 
 // Animações ao fazer scroll
@@ -534,3 +537,302 @@ function initLogoScroll() {
 // Console message personalizado
 console.log('%c Landing Page de Rodrigo Pires', 'color: #2563eb; font-size: 20px; font-weight: bold;');
 console.log('%cDesenvolvido com HTML5, CSS3 e JavaScript', 'color: #6b7280; font-size: 14px;');
+
+// Carrossel de Projetos
+function initProjectsCarousel() {
+    const track = document.getElementById('carousel-track');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const indicatorsContainer = document.getElementById('carousel-indicators');
+    
+    if (!track || !prevBtn || !nextBtn || !indicatorsContainer) return;
+    
+    const cards = track.querySelectorAll('.project-card');
+    const totalCards = cards.length;
+    
+    // Configurações responsivas
+    let cardsPerView = 2;
+    let gap = 30;
+    
+    function updateCardsPerView() {
+        if (window.innerWidth <= 768) {
+            cardsPerView = 1;
+            gap = 20;
+        } else if (window.innerWidth <= 1367) {
+            cardsPerView = 2;
+            gap = 20;
+        } else {
+            cardsPerView = 2;
+            gap = 30;
+        }
+        
+        // Atualizar gap no track
+        track.style.gap = gap + 'px';
+        
+        // Atualizar maxIndex e ajustar currentIndex se necessário
+        updateMaxIndex();
+        if (currentIndex > maxIndex) {
+            currentIndex = maxIndex;
+        }
+        
+        updateCarousel();
+    }
+    
+    let currentIndex = 0;
+    let maxIndex = Math.max(0, totalCards - cardsPerView);
+    
+    function updateMaxIndex() {
+        maxIndex = Math.max(0, totalCards - cardsPerView);
+    }
+    
+    // Criar indicadores
+    function createIndicators() {
+        indicatorsContainer.innerHTML = '';
+        const totalSlides = Math.ceil(totalCards / cardsPerView);
+        
+        for (let i = 0; i < totalSlides; i++) {
+            const indicator = document.createElement('button');
+            indicator.className = 'indicator';
+            indicator.setAttribute('aria-label', `Slide ${i + 1}`);
+            
+            indicator.addEventListener('click', () => {
+                currentIndex = i * cardsPerView;
+                updateCarousel();
+            });
+            
+            indicatorsContainer.appendChild(indicator);
+        }
+        
+        updateIndicators();
+    }
+    
+    function updateIndicators() {
+        const indicators = indicatorsContainer.querySelectorAll('.indicator');
+        const currentSlide = Math.floor(currentIndex / cardsPerView);
+        
+        indicators.forEach((indicator, index) => {
+            indicator.classList.remove('active');
+            if (index === currentSlide) {
+                indicator.classList.add('active');
+            }
+        });
+    }
+    
+    function updateCarousel() {
+        const cardWidth = cards[0].offsetWidth + gap;
+        const translateX = -(currentIndex * cardWidth);
+        track.style.transform = `translateX(${translateX}px)`;
+        
+        // Atualizar estado dos botões
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= maxIndex;
+        
+        updateIndicators();
+    }
+    
+    // Event listeners
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < maxIndex) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+    
+    // Navegação por teclado
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        } else if (e.key === 'ArrowRight' && currentIndex < maxIndex) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+    
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0 && currentIndex < maxIndex) {
+                currentIndex++;
+            } else if (diff < 0 && currentIndex > 0) {
+                currentIndex--;
+            }
+            updateCarousel();
+            resetAutoPlay();
+        }
+    }
+    
+    // Auto-play (opcional)
+    let autoPlayInterval;
+    let isAutoPlayActive = false;
+    let isModalOpen = false;
+    
+    function startAutoPlay() {
+        if (isAutoPlayActive || isModalOpen) return;
+        isAutoPlayActive = true;
+        stopAutoPlay(); // Limpa intervalo anterior se existir
+        autoPlayInterval = setInterval(() => {
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        }, 5000);
+    }
+    
+    function stopAutoPlay() {
+        isAutoPlayActive = false;
+        if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = null;
+        }
+    }
+    
+    function resetAutoPlay() {
+        if (!isAutoPlayActive) return;
+        stopAutoPlay();
+        startAutoPlay();
+    }
+    
+    // Intersection Observer para iniciar auto-play quando seção estiver visível
+    const projectsSection = document.querySelector('.projects-section');
+    if (projectsSection) {
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startAutoPlay();
+                } else {
+                    stopAutoPlay();
+                }
+            });
+        }, {
+            threshold: 0.3 // Iniciar quando 30% da seção estiver visível
+        });
+        
+        sectionObserver.observe(projectsSection);
+    }
+    
+    // Pausar auto-play ao hover e resetar quando sair
+    track.addEventListener('mouseenter', () => {
+        if (isAutoPlayActive) stopAutoPlay();
+    });
+    track.addEventListener('mouseleave', () => {
+        if (projectsSection && isSectionVisible(projectsSection)) {
+            startAutoPlay();
+        }
+    });
+    
+    // Função auxiliar para verificar se seção está visível
+    function isSectionVisible(element) {
+        const rect = element.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
+    }
+    
+    // Resetar timer ao interagir com botões
+    prevBtn.addEventListener('click', resetAutoPlay);
+    nextBtn.addEventListener('click', resetAutoPlay);
+    
+    // Resetar timer ao interagir com indicadores
+    indicatorsContainer.addEventListener('click', resetAutoPlay);
+    
+    // Resetar timer ao interagir com cards
+    cards.forEach(card => {
+        card.addEventListener('click', resetAutoPlay);
+        card.addEventListener('mouseenter', () => {
+            if (isAutoPlayActive) stopAutoPlay();
+        });
+        card.addEventListener('mouseleave', () => {
+            if (projectsSection && isSectionVisible(projectsSection)) {
+                startAutoPlay();
+            }
+        });
+    });
+    
+    // Inicialização
+    updateCardsPerView();
+    createIndicators();
+    updateCarousel();
+    // Auto-play será iniciado pelo Intersection Observer
+    
+    // Modal Lightbox para imagens
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalClose = document.getElementById('modal-close');
+    
+    // Adicionar click event nas imagens dos projetos
+    cards.forEach(card => {
+        const image = card.querySelector('.project-image img');
+        if (image) {
+            card.querySelector('.project-image').addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                modalImage.src = image.src;
+                modalImage.alt = image.alt;
+                modal.classList.add('active');
+                isModalOpen = true;
+                stopAutoPlay();
+            });
+        }
+    });
+    
+    // Função para fechar modal
+    function closeModal() {
+        modal.classList.remove('active');
+        isModalOpen = false;
+        if (projectsSection && isSectionVisible(projectsSection)) {
+            startAutoPlay();
+        }
+    }
+    
+    // Fechar modal ao clicar no botão de fechar
+    modalClose.addEventListener('click', closeModal);
+    
+    // Fechar modal ao clicar fora da imagem
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Fechar modal com ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+    
+    // Atualizar ao redimensionar janela
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateCardsPerView();
+            createIndicators();
+            currentIndex = Math.min(currentIndex, Math.max(0, totalCards - cardsPerView));
+            updateCarousel();
+        }, 250);
+    });
+}
