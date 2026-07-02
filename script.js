@@ -544,6 +544,9 @@ function initProjectsCarousel() {
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const indicatorsContainer = document.getElementById('carousel-indicators');
+    const mobileNavArrows = document.getElementById('mobile-nav-arrows');
+    const mobilePrevBtn = document.getElementById('mobile-prev-btn');
+    const mobileNextBtn = document.getElementById('mobile-next-btn');
     
     if (!track || !prevBtn || !nextBtn || !indicatorsContainer) return;
     
@@ -623,9 +626,15 @@ function initProjectsCarousel() {
         const translateX = -(currentIndex * cardWidth);
         track.style.transform = `translateX(${translateX}px)`;
         
-        // Atualizar estado dos botões
+        // Atualizar estado dos botões desktop
         prevBtn.disabled = currentIndex === 0;
         nextBtn.disabled = currentIndex >= maxIndex;
+        
+        // Atualizar estado dos botões mobile
+        if (mobilePrevBtn && mobileNextBtn) {
+            mobilePrevBtn.disabled = currentIndex === 0;
+            mobileNextBtn.disabled = currentIndex >= maxIndex;
+        }
         
         updateIndicators();
         
@@ -637,7 +646,7 @@ function initProjectsCarousel() {
         });
     }
     
-    // Event listeners
+    // Event listeners desktop
     prevBtn.addEventListener('click', () => {
         if (currentIndex > 0) {
             currentIndex--;
@@ -651,6 +660,35 @@ function initProjectsCarousel() {
             updateCarousel();
         }
     });
+    
+    // Event listeners mobile
+    if (mobilePrevBtn && mobileNextBtn) {
+        mobilePrevBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+            setTimeout(() => {
+                if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                    startAutoPlay();
+                }
+            }, 3000);
+        });
+        
+        mobileNextBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+                updateCarousel();
+            }
+            setTimeout(() => {
+                if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                    startAutoPlay();
+                }
+            }, 3000);
+        });
+    }
     
     // Navegação por teclado
     document.addEventListener('keydown', (e) => {
