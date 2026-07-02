@@ -1050,6 +1050,15 @@ section {
     display: flex;
     flex-direction: column;
     min-height: 600px;
+    outline: none;
+}
+
+.project-card:focus {
+    outline: none;
+}
+
+.project-card:focus-visible {
+    outline: none;
 }
 
 .project-image {
@@ -1769,6 +1778,30 @@ section {
         display: none;
     }
     
+    /* Desabilitar efeitos de hover no mobile */
+    .project-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .project-card:hover .project-image img {
+        transform: none;
+    }
+    
+    .project-image:hover::after,
+    .project-image:hover::before {
+        opacity: 0;
+    }
+    
+    .project-link:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .status-badge:hover {
+        transform: none;
+    }
+    
     .contact-btn {
         padding: 15px 20px;
         font-size: 1rem;
@@ -1786,6 +1819,30 @@ section {
     
     .name {
         font-size: 2rem;
+    }
+    
+    /* Desabilitar efeitos de hover no mobile */
+    .project-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .project-card:hover .project-image img {
+        transform: none;
+    }
+    
+    .project-image:hover::after,
+    .project-image:hover::before {
+        opacity: 0;
+    }
+    
+    .project-link:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .status-badge:hover {
+        transform: none;
     }
     
     .title {

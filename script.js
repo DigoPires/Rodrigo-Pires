@@ -628,6 +628,13 @@ function initProjectsCarousel() {
         nextBtn.disabled = currentIndex >= maxIndex;
         
         updateIndicators();
+        
+        // Remover foco de todos os cards após navegação
+        cards.forEach(card => {
+            card.blur();
+            const links = card.querySelectorAll('a');
+            links.forEach(link => link.blur());
+        });
     }
     
     // Event listeners
@@ -686,7 +693,12 @@ function initProjectsCarousel() {
                 currentIndex--;
             }
             updateCarousel();
-            resetAutoPlay();
+            stopAutoPlay();
+            setTimeout(() => {
+                if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                    startAutoPlay();
+                }
+            }, 3000);
         }
     }
     
@@ -743,11 +755,11 @@ function initProjectsCarousel() {
     
     // Pausar auto-play ao hover e resetar quando sair
     track.addEventListener('mouseenter', () => {
-        if (isAutoPlayActive) stopAutoPlay();
+        stopAutoPlay();
     });
     track.addEventListener('mouseleave', () => {
-        if (projectsSection && isSectionVisible(projectsSection)) {
-            startAutoPlay();
+        if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+            setTimeout(() => startAutoPlay(), 1000);
         }
     });
     
@@ -757,22 +769,50 @@ function initProjectsCarousel() {
         return rect.top < window.innerHeight && rect.bottom > 0;
     }
     
-    // Resetar timer ao interagir com botões
-    prevBtn.addEventListener('click', resetAutoPlay);
-    nextBtn.addEventListener('click', resetAutoPlay);
+    // Pausar auto-play ao interagir com botões
+    prevBtn.addEventListener('click', () => {
+        stopAutoPlay();
+        setTimeout(() => {
+            if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                startAutoPlay();
+            }
+        }, 3000);
+    });
+    nextBtn.addEventListener('click', () => {
+        stopAutoPlay();
+        setTimeout(() => {
+            if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                startAutoPlay();
+            }
+        }, 3000);
+    });
     
-    // Resetar timer ao interagir com indicadores
-    indicatorsContainer.addEventListener('click', resetAutoPlay);
+    // Pausar auto-play ao interagir com indicadores
+    indicatorsContainer.addEventListener('click', () => {
+        stopAutoPlay();
+        setTimeout(() => {
+            if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                startAutoPlay();
+            }
+        }, 3000);
+    });
     
-    // Resetar timer ao interagir com cards
+    // Pausar auto-play ao interagir com cards
     cards.forEach(card => {
-        card.addEventListener('click', resetAutoPlay);
+        card.addEventListener('click', () => {
+            stopAutoPlay();
+            setTimeout(() => {
+                if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                    startAutoPlay();
+                }
+            }, 3000);
+        });
         card.addEventListener('mouseenter', () => {
-            if (isAutoPlayActive) stopAutoPlay();
+            stopAutoPlay();
         });
         card.addEventListener('mouseleave', () => {
-            if (projectsSection && isSectionVisible(projectsSection)) {
-                startAutoPlay();
+            if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                setTimeout(() => startAutoPlay(), 1000);
             }
         });
     });
