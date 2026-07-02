@@ -659,24 +659,30 @@ function initProjectsCarousel() {
     // Touch/swipe support
     let touchStartX = 0;
     let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
     
     track.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
     }, { passive: true });
     
     track.addEventListener('touchend', (e) => {
         touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
         handleSwipe();
     }, { passive: true });
     
     function handleSwipe() {
         const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
+        const diffX = touchStartX - touchEndX;
+        const diffY = touchStartY - touchEndY;
         
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0 && currentIndex < maxIndex) {
+        // Só considerar swipe horizontal se o movimento horizontal for maior que o vertical
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > swipeThreshold) {
+            if (diffX > 0 && currentIndex < maxIndex) {
                 currentIndex++;
-            } else if (diff < 0 && currentIndex > 0) {
+            } else if (diffX < 0 && currentIndex > 0) {
                 currentIndex--;
             }
             updateCarousel();
