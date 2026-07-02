@@ -792,15 +792,17 @@ function initProjectsCarousel() {
         sectionObserver.observe(projectsSection);
     }
     
-    // Pausar auto-play ao hover e resetar quando sair
-    track.addEventListener('mouseenter', () => {
-        stopAutoPlay();
-    });
-    track.addEventListener('mouseleave', () => {
-        if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
-            setTimeout(() => startAutoPlay(), 1000);
-        }
-    });
+    // Pausar auto-play ao hover e resetar quando sair (apenas desktop)
+    if (window.innerWidth > 768) {
+        track.addEventListener('mouseenter', () => {
+            stopAutoPlay();
+        });
+        track.addEventListener('mouseleave', () => {
+            if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                setTimeout(() => startAutoPlay(), 1000);
+            }
+        });
+    }
     
     // Função auxiliar para verificar se seção está visível
     function isSectionVisible(element) {
@@ -909,15 +911,19 @@ function initProjectsCarousel() {
         }
     });
     
-    // Atualizar ao redimensionar janela
+    // Atualizar ao redimensionar janela (com debounce para iOS Safari)
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            updateCardsPerView();
-            createIndicators();
-            currentIndex = Math.min(currentIndex, Math.max(0, totalCards - cardsPerView));
-            updateCarousel();
+            // Verificar se realmente houve mudança significativa no tamanho
+            const newCardsPerView = window.innerWidth <= 768 ? 1 : (window.innerWidth <= 1367 ? 2 : 2);
+            if (newCardsPerView !== cardsPerView) {
+                updateCardsPerView();
+                createIndicators();
+                currentIndex = Math.min(currentIndex, Math.max(0, totalCards - cardsPerView));
+                updateCarousel();
+            }
         }, 250);
     });
 }
