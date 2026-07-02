@@ -20,7 +20,7 @@
 }
 
 .nav-container {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background: var(--dark-surface);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(139, 92, 246, 0.3);
@@ -237,7 +237,7 @@
         bottom: calc(100% + 10px);
         left: 0;
         right: 0;
-        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        background: var(--dark-surface);
         backdrop-filter: blur(20px);
         border: 1px solid rgba(139, 92, 246, 0.3);
         border-radius: 20px;
