@@ -622,7 +622,8 @@ function initProjectsCarousel() {
     }
     
     function updateCarousel() {
-        const cardWidth = cards[0].offsetWidth + gap;
+        // Recalcular cardWidth a cada navegação para garantir precisão
+        const cardWidth = cards[0].getBoundingClientRect().width + gap;
         const translateX = -(currentIndex * cardWidth);
         track.style.transform = `translateX(${translateX}px)`;
         
