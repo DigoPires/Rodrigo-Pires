@@ -547,6 +547,7 @@ function initProjectsCarousel() {
     const mobileNavArrows = document.getElementById('mobile-nav-arrows');
     const mobilePrevBtn = document.getElementById('mobile-prev-btn');
     const mobileNextBtn = document.getElementById('mobile-next-btn');
+    const autoplayToggle = document.getElementById('autoplay-toggle');
     
     if (!track || !prevBtn || !nextBtn || !indicatorsContainer) return;
     
@@ -591,15 +592,16 @@ function initProjectsCarousel() {
     // Criar indicadores
     function createIndicators() {
         indicatorsContainer.innerHTML = '';
-        const totalSlides = Math.ceil(totalCards / cardsPerView);
+        // Calcular número de rolagens possíveis
+        const totalScrolls = totalCards - cardsPerView + 1;
         
-        for (let i = 0; i < totalSlides; i++) {
+        for (let i = 0; i < totalScrolls; i++) {
             const indicator = document.createElement('button');
             indicator.className = 'indicator';
-            indicator.setAttribute('aria-label', `Slide ${i + 1}`);
+            indicator.setAttribute('aria-label', `Posição ${i + 1}`);
             
             indicator.addEventListener('click', () => {
-                currentIndex = i * cardsPerView;
+                currentIndex = i;
                 updateCarousel();
             });
             
@@ -611,11 +613,11 @@ function initProjectsCarousel() {
     
     function updateIndicators() {
         const indicators = indicatorsContainer.querySelectorAll('.indicator');
-        const currentSlide = Math.floor(currentIndex / cardsPerView);
         
         indicators.forEach((indicator, index) => {
             indicator.classList.remove('active');
-            if (index === currentSlide) {
+            // Ativar o indicador correspondente à posição atual
+            if (index === currentIndex) {
                 indicator.classList.add('active');
             }
         });
@@ -745,9 +747,25 @@ function initProjectsCarousel() {
     let autoPlayInterval;
     let isAutoPlayActive = false;
     let isModalOpen = false;
+    let isAutoplayEnabled = true; // Por padrão ativado
+    
+    // Toggle autoplay checkbox
+    if (autoplayToggle) {
+        autoplayToggle.addEventListener('change', () => {
+            isAutoplayEnabled = autoplayToggle.checked;
+            
+            if (isAutoplayEnabled) {
+                if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                    startAutoPlay();
+                }
+            } else {
+                stopAutoPlay();
+            }
+        });
+    }
     
     function startAutoPlay() {
-        if (isAutoPlayActive || isModalOpen) return;
+        if (isAutoPlayActive || isModalOpen || !isAutoplayEnabled) return;
         isAutoPlayActive = true;
         stopAutoPlay(); // Limpa intervalo anterior se existir
         autoPlayInterval = setInterval(() => {
