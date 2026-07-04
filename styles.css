@@ -1255,6 +1255,23 @@ section {
     box-shadow: var(--shadow-purple);
 }
 
+.github-link {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+}
+
+.github-link:hover {
+    background: #24292e;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+body.light-mode .github-link:hover {
+    background: #0d1117 !important;
+}
+
 .carousel-btn {
     position: absolute;
     top: 50%;
