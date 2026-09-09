@@ -100,7 +100,7 @@ body {
 
 .scroll-text {
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
+    font-size: clamp(0.75rem, 0.6vw + 0.55rem, 0.9rem);
     font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -179,15 +179,17 @@ body {
     flex: 1;
 }
 
+/* FIX: fonte fluida — escala continuamente entre mobile e desktop
+   em vez de "saltar" só nos breakpoints fixos */
 .name {
-    font-size: 3rem;
+    font-size: clamp(1.6rem, 5.5vw, 3rem);
     font-weight: 700;
     margin-bottom: 10px;
     line-height: 1.2;
 }
 
 .title {
-    font-size: 1.5rem;
+    font-size: clamp(0.95rem, 2.6vw, 1.5rem);
     font-weight: 400;
     margin-bottom: 30px;
     opacity: 0.9;
@@ -204,6 +206,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-size: clamp(0.85rem, 1vw + 0.5rem, 1rem);
 }
 
 .contact-item i {
@@ -246,7 +249,7 @@ section {
 }
 
 .section-title {
-    font-size: 2.5rem;
+    font-size: clamp(1.4rem, 3.6vw, 2.5rem);
     font-weight: 700;
     text-align: center;
     margin-bottom: 60px;
@@ -280,7 +283,7 @@ section {
 }
 
 .about-text {
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 1.1vw + 0.6rem, 1.2rem);
     line-height: 1.8;
     color: var(--text-light);
     margin-bottom: 50px;
@@ -296,7 +299,7 @@ section {
 
 .personal-info h3,
 .education-info h3 {
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 1.8vw + 0.5rem, 1.5rem);
     font-weight: 600;
     color: var(--text-dark);
     margin-bottom: 20px;
@@ -380,7 +383,7 @@ section {
 }
 
 .company-info h3 {
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 1.8vw + 0.5rem, 1.5rem);
     font-weight: 600;
     color: var(--text-dark);
     margin-bottom: 5px;
@@ -390,6 +393,7 @@ section {
 .position {
     color: var(--primary-color);
     font-weight: 500;
+    font-size: clamp(0.85rem, 0.9vw + 0.5rem, 1rem);
 }
 
 .period {
@@ -398,7 +402,7 @@ section {
     background: var(--dark-surface);
     padding: 8px 20px;
     border-radius: 25px;
-    font-size: 0.9rem;
+    font-size: clamp(0.75rem, 0.7vw + 0.5rem, 0.9rem);
     border: 1px solid var(--border-color);
 }
 
@@ -407,6 +411,7 @@ section {
     line-height: 1.7;
     margin-bottom: 20px;
     text-align: justify;
+    font-size: clamp(0.88rem, 0.9vw + 0.55rem, 1rem);
 }
 
 .role {
@@ -414,7 +419,7 @@ section {
 }
 
 .role h4 {
-    font-size: 1.2rem;
+    font-size: clamp(0.98rem, 1.1vw + 0.6rem, 1.2rem);
     font-weight: 600;
     color: var(--text-dark);
     margin: 0 0 8px 0;
@@ -422,8 +427,11 @@ section {
 }
 
 .role-period {
+    background: var(--dark-surface);
+    border-radius: 25px;
+    padding: 3px 8px;
     color: var(--text-light);
-    font-size: 0.9rem;
+    font-size: clamp(0.75rem, 0.7vw + 0.5rem, 0.9rem);
 }
 
 /* Education Section */
@@ -453,7 +461,7 @@ section {
 }
 
 .education-header h4 {
-    font-size: 1.3rem;
+    font-size: clamp(0.98rem, 1.4vw + 0.55rem, 1.3rem);
     font-weight: 600;
     color: var(--text-dark);
     margin: 0 0 20px 0;
@@ -478,7 +486,7 @@ section {
 .course-item .period {
     color: var(--primary-color);
     font-weight: 500;
-    font-size: 0.8rem;
+    font-size: clamp(0.68rem, 0.5vw + 0.5rem, 0.8rem);
     white-space: nowrap;
     flex-shrink: 0;
     min-width: 120px;
@@ -492,7 +500,7 @@ section {
 .course-item .degree {
     color: var(--text-dark);
     font-weight: 500;
-    font-size: 0.85rem;
+    font-size: clamp(0.76rem, 0.5vw + 0.55rem, 0.85rem);
     flex: 1;
     min-width: 0;
     word-wrap: break-word;
@@ -564,7 +572,7 @@ section {
 }
 
 .skill-category h3 {
-    font-size: 1.4rem;
+    font-size: clamp(1.05rem, 1.4vw + 0.55rem, 1.4rem);
     font-weight: 600;
     color: var(--text-dark);
     margin-bottom: 25px;
@@ -592,7 +600,7 @@ section {
     color: var(--text-dark);
     padding: 10px 16px;
     border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: clamp(0.78rem, 0.7vw + 0.5rem, 0.9rem);
     font-weight: 500;
     border: 1px solid rgba(139, 92, 246, 0.3);
     transition: all 0.3s ease;
@@ -655,6 +663,7 @@ section {
     font-weight: 500;
     color: var(--text-light);
     text-align: justify;
+    font-size: clamp(0.85rem, 0.9vw + 0.5rem, 1rem);
 }
 
 .proficiency-bar {
@@ -706,7 +715,7 @@ section {
 }
 
 .sites-text h3 {
-    font-size: 2rem;
+    font-size: clamp(1.3rem, 2.8vw + 0.5rem, 2rem);
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 20px;
@@ -715,7 +724,7 @@ section {
 }
 
 .sites-text p {
-    font-size: 1.1rem;
+    font-size: clamp(0.88rem, 1.1vw + 0.55rem, 1.1rem);
     color: var(--text-light);
     margin-bottom: 40px;
     line-height: 1.6;
@@ -750,7 +759,7 @@ section {
 }
 
 .service-item h4 {
-    font-size: 1.1rem;
+    font-size: clamp(0.92rem, 1.1vw + 0.5rem, 1.1rem);
     font-weight: 600;
     color: var(--text-dark);
     margin-bottom: 8px;
@@ -759,7 +768,7 @@ section {
 
 .service-item p {
     color: var(--text-light);
-    font-size: 0.9rem;
+    font-size: clamp(0.78rem, 0.7vw + 0.5rem, 0.9rem);
     margin: 0;
     text-align: center;
 }
@@ -808,7 +817,7 @@ section {
 }
 
 .cta-header h4 {
-    font-size: 1.8rem;
+    font-size: clamp(1.2rem, 2.1vw + 0.5rem, 1.8rem);
     font-weight: 700;
     color: white;
     text-align: center;
@@ -842,7 +851,7 @@ section {
 .feature-item span {
     color: white;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: clamp(0.82rem, 0.9vw + 0.5rem, 0.95rem);
 }
 
 .cta-card::before {
@@ -876,7 +885,7 @@ section {
 }
 
 .cta-card h4 {
-    font-size: 1.5rem;
+    font-size: clamp(1.15rem, 1.7vw + 0.5rem, 1.5rem);
     font-weight: 700;
     margin-bottom: 20px;
     position: relative;
@@ -888,7 +897,7 @@ section {
 .cta-card p {
     margin-bottom: 30px;
     opacity: 0.95;
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 1.1vw + 0.5rem, 1.1rem);
     position: relative;
     z-index: 1;
     animation: text-pulse 2s ease-in-out infinite 0.5s;
@@ -904,7 +913,7 @@ section {
     border-radius: 30px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 1.1vw + 0.5rem, 1.1rem);
     transition: all 0.3s ease;
     position: relative;
     z-index: 1;
@@ -995,14 +1004,6 @@ section {
         flex: 0 0 calc(50% - 20px);
     }
     
-    .project-title {
-        font-size: 1.3rem;
-    }
-    
-    .project-description {
-        font-size: 0.9rem;
-    }
-    
     .project-card-content {
         padding: 20px;
     }
@@ -1053,6 +1054,10 @@ section {
     flex-direction: column;
     min-height: 600px;
     outline: none;
+    /* FIX (carrossel mobile): reforça no próprio card, não só no
+       container/track, que o navegador deve tratar o gesto como
+       rolagem vertical e não interceptar o swipe horizontal. */
+    touch-action: pan-y;
 }
 
 .project-card:focus {
@@ -1069,6 +1074,7 @@ section {
     overflow: hidden;
     position: relative;
     background: var(--dark-surface);
+    touch-action: pan-y;
 }
 
 .project-image img {
@@ -1076,6 +1082,12 @@ section {
     height: 100%;
     object-fit: cover;
     transition: transform 0.4s ease;
+    /* FIX (carrossel mobile): impede o navegador de iniciar o
+       drag nativo de imagem, que competia com o swipe custom
+       em cards cuja imagem já estava carregada. */
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
 }
 
 .project-card:hover .project-image img {
@@ -1162,7 +1174,7 @@ section {
 }
 
 .project-title {
-    font-size: 1.4rem;
+    font-size: clamp(1rem, 1.7vw + 0.5rem, 1.4rem);
     font-weight: 700;
     color: var(--text-dark);
     margin: 0;
@@ -1177,7 +1189,7 @@ section {
     display: inline-block;
     padding: 6px 14px;
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: clamp(0.68rem, 0.5vw + 0.55rem, 0.8rem);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1197,7 +1209,7 @@ section {
 
 .project-description {
     color: var(--text-light);
-    font-size: 0.95rem;
+    font-size: clamp(0.82rem, 0.9vw + 0.5rem, 0.95rem);
     line-height: 1.7;
     margin-bottom: 20px;
     min-height: 80px;
@@ -1219,7 +1231,7 @@ section {
     align-items: center;
     gap: 10px;
     color: var(--text-light);
-    font-size: 0.85rem;
+    font-size: clamp(0.76rem, 0.5vw + 0.55rem, 0.85rem);
 }
 
 .date-item i {
@@ -1240,7 +1252,7 @@ section {
     padding: 10px 18px;
     border-radius: 12px;
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: clamp(0.76rem, 0.5vw + 0.55rem, 0.85rem);
     font-weight: 600;
     transition: all 0.3s ease;
 }
@@ -1349,7 +1361,7 @@ body.light-mode .project-github-link:hover {
 
 .autoplay-label {
     color: var(--text-light);
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 0.9vw + 0.5rem, 1rem);
     font-weight: 500;
 }
 
@@ -1508,7 +1520,7 @@ body.light-mode .project-github-link:hover {
 }
 
 .contact-text h3 {
-    font-size: 2rem;
+    font-size: clamp(1.3rem, 2.8vw + 0.5rem, 2rem);
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 20px;
@@ -1517,7 +1529,7 @@ body.light-mode .project-github-link:hover {
 }
 
 .contact-text p {
-    font-size: 1.1rem;
+    font-size: clamp(0.88rem, 1.1vw + 0.55rem, 1.1rem);
     color: var(--text-light);
     margin-bottom: 40px;
     line-height: 1.6;
@@ -1555,10 +1567,15 @@ body.light-mode .project-github-link:hover {
 .highlight-item span {
     color: var(--text-dark);
     font-weight: 500;
+    font-size: clamp(0.85rem, 0.9vw + 0.5rem, 1rem);
+}
+
+.mobile-highlight-text {
+    display: none;
 }
 
 .contact-actions h4 {
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 1.8vw + 0.5rem, 1.5rem);
     font-weight: 600;
     color: var(--text-dark);
     margin-bottom: 30px;
@@ -1579,7 +1596,7 @@ body.light-mode .project-github-link:hover {
     border-radius: 15px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 1.1vw + 0.5rem, 1.1rem);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -1636,7 +1653,7 @@ body.light-mode .project-github-link:hover {
     align-items: center;
     gap: 10px;
     color: var(--text-light);
-    font-size: 0.95rem;
+    font-size: clamp(0.85rem, 0.9vw + 0.5rem, 0.95rem);
 }
 
 .contact-info-footer i {
@@ -1661,6 +1678,10 @@ body.light-mode .project-github-link:hover {
     align-items: center;
     justify-content: center;
     gap: 20px;
+}
+
+.footer-content p {
+    font-size: clamp(0.78rem, 0.7vw + 0.5rem, 0.9rem);
 }
 
 .footer-social {
@@ -1696,14 +1717,6 @@ body.light-mode .project-github-link:hover {
         gap: 40px;
     }
     
-    .name {
-        font-size: 2.5rem;
-    }
-    
-    .title {
-        font-size: 1.3rem;
-    }
-    
     .contact-info {
         grid-template-columns: 1fr;
     }
@@ -1711,10 +1724,6 @@ body.light-mode .project-github-link:hover {
     .experience-header {
         flex-direction: column;
         align-items: flex-start;
-    }
-    
-    .section-title {
-        font-size: 2rem;
     }
     
     .skills-grid {
@@ -1733,8 +1742,6 @@ body.light-mode .project-github-link:hover {
         padding: 25px;
     }
 
-    
-    
     .integrated-info {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -1773,29 +1780,9 @@ body.light-mode .project-github-link:hover {
         display: none;
     }
     
-    .sites-text h3 {
-        font-size: 1.8rem;
-    }
-    
-    .sites-text p {
-        font-size: 1rem;
-    }
-    
     .cta-card {
         padding: 30px;
         max-width: 400px;
-    }
-    
-    .contact-text h3 {
-        font-size: 1.8rem;
-    }
-    
-    .contact-text p {
-        font-size: 1rem;
-    }
-    
-    .contact-actions h4 {
-        font-size: 1.3rem;
     }
     
     .project-card {
@@ -1815,29 +1802,9 @@ body.light-mode .project-github-link:hover {
         margin-bottom: 10px;
     }
     
-    .project-title {
-        font-size: 1.1rem;
-    }
-    
-    .status-badge {
-        padding: 4px 10px;
-        font-size: 0.7rem;
-    }
-    
-    .project-description {
-        font-size: 0.85rem;
-        line-height: 1.5;
-        margin-bottom: 12px;
-        min-height: auto;
-    }
-    
     .project-dates {
         padding: 10px;
         margin-bottom: 15px;
-    }
-    
-    .date-item {
-        font-size: 0.8rem;
     }
     
     .project-links {
@@ -1846,7 +1813,6 @@ body.light-mode .project-github-link:hover {
     
     .project-link {
         padding: 8px 12px;
-        font-size: 0.8rem;
     }
     
     .carousel-btn {
@@ -1914,7 +1880,6 @@ body.light-mode .project-github-link:hover {
     
     .contact-btn {
         padding: 15px 20px;
-        font-size: 1rem;
     }
 
     .footer{
@@ -1925,10 +1890,6 @@ body.light-mode .project-github-link:hover {
 @media (max-width: 480px) {
     .hero-section {
         padding: 60px 0;
-    }
-    
-    .name {
-        font-size: 2rem;
     }
     
     /* Desabilitar efeitos de hover no mobile */
@@ -1955,10 +1916,6 @@ body.light-mode .project-github-link:hover {
         transform: none;
     }
     
-    .title {
-        font-size: 1.1rem;
-    }
-    
     .profile-image img {
         width: 150px;
         height: 150px;
@@ -1967,15 +1924,18 @@ body.light-mode .project-github-link:hover {
     section {
         padding: 60px 0;
     }
-    
-    .section-title {
-        font-size: 1.8rem;
-    }
 }
 
 @media (max-width: 422px) {
+    .desktop-highlight-text {
+        display: none;
+    }
+
+    .mobile-highlight-text {
+        display: inline;
+    }
+
     .name {
-        font-size: 1.8rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -1983,7 +1943,6 @@ body.light-mode .project-github-link:hover {
     }
     
     .title {
-        font-size: 1rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -2004,13 +1963,11 @@ body.light-mode .project-github-link:hover {
     
     .course-item .degree {
         order: 1;
-        font-size: 0.8rem;
         margin-bottom: 5px;
     }
     
     .course-item .period {
         order: 2;
-        font-size: 0.75rem;
         min-width: auto;
         align-self: flex-start;
         background: var(--dark-surface);
@@ -2027,6 +1984,7 @@ body.light-mode .project-github-link:hover {
         padding: 12px;
         flex-direction: column;
         text-align: center;
+        font-size: 0.9rem;
         gap: 8px;
     }
     
@@ -2043,22 +2001,13 @@ body.light-mode .project-github-link:hover {
         padding: 20px;
     }
     
-    .education-header h4 {
-        font-size: 1.1rem;
-    }
-    
     .course-item {
         padding: 10px;
         gap: 8px;
     }
     
     .course-item .period {
-        font-size: 0.75rem;
         min-width: 90px;
-    }
-    
-    .course-item .degree {
-        font-size: 0.8rem;
     }
 }
 
@@ -2068,7 +2017,6 @@ body.light-mode .project-github-link:hover {
     }
     
     .education-header h4 {
-        font-size: 1rem;
         margin-bottom: 15px;
     }
     
@@ -2080,15 +2028,10 @@ body.light-mode .project-github-link:hover {
     }
     
     .course-item .period {
-        font-size: 0.7rem;
         flex-shrink: 0;
         min-width: auto;
         align-self: flex-start;
         max-width: 100%;
-    }
-    
-    .course-item .degree {
-        font-size: 0.75rem;
     }
 }
 
@@ -2097,20 +2040,8 @@ body.light-mode .project-github-link:hover {
         padding: 12px;
     }
     
-    .education-header h4 {
-        font-size: 0.95rem;
-    }
-    
     .course-item {
         padding: 6px;
-    }
-    
-    .course-item .period {
-        font-size: 0.65rem;
-    }
-    
-    .course-item .degree {
-        font-size: 0.7rem;
     }
 }
 
@@ -2382,7 +2313,7 @@ body.light-mode .footer-social a:hover {
 
 .category-title {
     color: #000000;
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 1.8vw + 0.5rem, 1.5rem);
     margin-bottom: 30px;
     display: flex;
     align-items: center;
@@ -2464,7 +2395,7 @@ body:not(.light-mode) .category-title i {
 
 .lang-info h4 {
     color: var(--text-dark);
-    font-size: 1.1rem;
+    font-size: clamp(0.92rem, 0.9vw + 0.55rem, 1.1rem);
     font-weight: 600;
 }
 
@@ -2534,7 +2465,7 @@ body:not(.light-mode) .category-title i {
 .tech-item span {
     color: var(--text-dark);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: clamp(0.82rem, 0.9vw + 0.5rem, 0.95rem);
 }
 
 /* Dados & Business Intelligence */
@@ -2579,14 +2510,14 @@ body:not(.light-mode) .category-title i {
 
 .bi-info h4 {
     color: var(--text-dark);
-    font-size: 1.1rem;
+    font-size: clamp(0.92rem, 0.9vw + 0.55rem, 1.1rem);
     margin-bottom: 8px;
     font-weight: 600;
 }
 
 .bi-info p {
     color: var(--text-light);
-    font-size: 0.9rem;
+    font-size: clamp(0.78rem, 0.7vw + 0.5rem, 0.9rem);
     line-height: 1.4;
 }
 
@@ -2623,7 +2554,7 @@ body:not(.light-mode) .category-title i {
 .automation-item span {
     color: var(--text-dark);
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: clamp(0.82rem, 0.8vw + 0.5rem, 0.9rem);
 }
 
 /* Ferramentas de Desenvolvimento */
@@ -2659,7 +2590,7 @@ body:not(.light-mode) .category-title i {
 .dev-tool span {
     color: var(--text-dark);
     font-weight: 500;
-    font-size: 0.85rem;
+    font-size: clamp(0.78rem, 0.7vw + 0.5rem, 0.85rem);
 }
 
 /* Responsividade para Habilidades */
@@ -2701,10 +2632,6 @@ body:not(.light-mode) .category-title i {
         width: 50px;
         height: 50px;
         font-size: 1.5rem;
-    }
-    
-    .category-title {
-        font-size: 1.3rem;
     }
 }
 
