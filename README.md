@@ -35,7 +35,7 @@ portfolio/
 ├── styles.css              # Estilos CSS com design responsivo e tema
 ├── script.js               # JavaScript para interatividade
 ├── img/                    # Pasta de imagens
-│   ├── DigoPires.jpg      # Foto profissional
+│   ├── DigoPires.png      # Foto profissional
 │   └── rp2.png            # Logo pessoal
 ├── Favicon/               # Pasta de favicons
 │   ├── favicon.ico        # Favicon padrão
