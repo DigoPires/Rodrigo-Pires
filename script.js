@@ -553,6 +553,15 @@ function initProjectsCarousel() {
     
     const cards = track.querySelectorAll('.project-card');
     const totalCards = cards.length;
+
+    cards.forEach(card => {
+        const img = card.querySelector('.project-image img');
+        if (img) {
+            img.setAttribute('draggable', 'false');
+            img.addEventListener('dragstart', (e) => e.preventDefault());
+        }
+        card.style.touchAction = 'pan-y';
+    });
     
     // Configurações responsivas
     let cardsPerView = 2;
@@ -709,15 +718,19 @@ function initProjectsCarousel() {
     let touchEndX = 0;
     let touchStartY = 0;
     let touchEndY = 0;
-    
+    let isSwiping = false; // FIX: flag para não deixar o autoplay competir durante o gesto
+
     track.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
         touchStartY = e.changedTouches[0].screenY;
+        isSwiping = true;
+        stopAutoPlay();
     }, { passive: true });
     
     track.addEventListener('touchend', (e) => {
         touchEndX = e.changedTouches[0].screenX;
         touchEndY = e.changedTouches[0].screenY;
+        isSwiping = false;
         handleSwipe();
     }, { passive: true });
     
@@ -726,7 +739,6 @@ function initProjectsCarousel() {
         const diffX = touchStartX - touchEndX;
         const diffY = touchStartY - touchEndY;
         
-        // Só considerar swipe horizontal se o movimento horizontal for maior que o vertical
         if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > swipeThreshold) {
             if (diffX > 0 && currentIndex < maxIndex) {
                 currentIndex++;
@@ -734,13 +746,12 @@ function initProjectsCarousel() {
                 currentIndex--;
             }
             updateCarousel();
-            stopAutoPlay();
-            setTimeout(() => {
-                if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
-                    startAutoPlay();
-                }
-            }, 3000);
         }
+        setTimeout(() => {
+            if (projectsSection && isSectionVisible(projectsSection) && !isModalOpen) {
+                startAutoPlay();
+            }
+        }, 3000);
     }
     
     // Auto-play (opcional)
@@ -765,10 +776,11 @@ function initProjectsCarousel() {
     }
     
     function startAutoPlay() {
-        if (isAutoPlayActive || isModalOpen || !isAutoplayEnabled) return;
+        if (isAutoPlayActive || isModalOpen || !isAutoplayEnabled || isSwiping) return;
+        stopAutoPlay();
         isAutoPlayActive = true;
-        stopAutoPlay(); // Limpa intervalo anterior se existir
         autoPlayInterval = setInterval(() => {
+            if (isSwiping) return; // proteção extra contra corrida
             if (currentIndex < maxIndex) {
                 currentIndex++;
             } else {
