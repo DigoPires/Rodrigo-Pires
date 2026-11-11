@@ -99,22 +99,37 @@ function initProficiencyBars() {
 // Efeito de digitação para o nome
 function initTypingEffect() {
     const nameElement = document.querySelector('.name');
-    const originalText = nameElement.textContent;
+    const originalText = nameElement.textContent.trim();
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+
+    const typingText = document.createElement('span');
+    const typingPlaceholder = document.createElement('span');
+    const cursor = document.createElement('span');
+    typingPlaceholder.textContent = originalText;
+    typingPlaceholder.className = 'typing-placeholder';
+    typingPlaceholder.setAttribute('aria-hidden', 'true');
+    cursor.className = 'typing-cursor';
+    cursor.setAttribute('aria-hidden', 'true');
+
     nameElement.textContent = '';
-    nameElement.style.borderRight = '3px solid white';
+    nameElement.setAttribute('aria-label', originalText);
+    typingText.append(cursor);
+    nameElement.append(typingPlaceholder, typingText);
     
     let charIndex = 0;
     const typingSpeed = 100;
     
     function typeChar() {
         if (charIndex < originalText.length) {
-            nameElement.textContent += originalText.charAt(charIndex);
+            cursor.before(originalText.charAt(charIndex));
             charIndex++;
             setTimeout(typeChar, typingSpeed);
         } else {
-            // Remover o cursor após terminar
             setTimeout(() => {
-                nameElement.style.borderRight = 'none';
+                cursor.remove();
             }, 1000);
         }
     }

@@ -177,15 +177,41 @@ body {
 
 .hero-text {
     flex: 1;
+    min-width: 0;
 }
 
 /* FIX: fonte fluida — escala continuamente entre mobile e desktop
    em vez de "saltar" só nos breakpoints fixos */
 .name {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     font-size: clamp(1.6rem, 5.5vw, 3rem);
     font-weight: 700;
     margin-bottom: 10px;
     line-height: 1.2;
+}
+
+.name > span {
+    grid-area: 1 / 1;
+}
+
+.typing-placeholder {
+    visibility: hidden;
+}
+
+.typing-cursor {
+    display: inline-block;
+    height: 0.9em;
+    margin-left: 2px;
+    border-left: 3px solid currentColor;
+    vertical-align: -0.08em;
+    animation: typing-cursor-blink 0.8s steps(2, start) infinite;
+}
+
+@keyframes typing-cursor-blink {
+    to {
+        visibility: hidden;
+    }
 }
 
 .title {
@@ -1207,6 +1233,12 @@ section {
     border: 1px solid rgba(234, 179, 8, 0.3);
 }
 
+.status-badge.archived {
+    background: rgba(161, 161, 170, 0.15);
+    color: #a1a1aa;
+    border: 1px solid rgba(161, 161, 170, 0.3);
+}
+
 .project-description {
     color: var(--text-light);
     font-size: clamp(0.82rem, 0.9vw + 0.5rem, 0.95rem);
@@ -1936,9 +1968,9 @@ body.light-mode .project-github-link:hover {
     }
 
     .name {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
         max-width: 100%;
     }
     
@@ -2350,12 +2382,25 @@ body:not(.light-mode) .category-title i {
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
-.lang-card::before {
+.skills-section .lang-card,
+.skills-section .tech-item,
+.skills-section .bi-item,
+.skills-section .automation-item,
+.skills-section .dev-tool {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.skills-section .lang-card::before,
+.skills-section .tech-item::before,
+.skills-section .bi-item::before,
+.skills-section .automation-item::before,
+.skills-section .dev-tool::before {
     content: '';
     position: absolute;
     top: 0;
@@ -2367,13 +2412,24 @@ body:not(.light-mode) .category-title i {
     transition: transform 0.3s ease;
 }
 
-.lang-card:hover::before {
-    transform: scaleX(1);
-}
+@media (hover: hover) and (pointer: fine) {
+    .skills-section .lang-card:hover::before,
+    .skills-section .tech-item:hover::before,
+    .skills-section .bi-item:hover::before,
+    .skills-section .automation-item:hover::before,
+    .skills-section .dev-tool:hover::before {
+        transform: scaleX(1);
+    }
 
-.lang-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-xl);
+    .skills-section .lang-card:hover,
+    .skills-section .tech-item:hover,
+    .skills-section .bi-item:hover,
+    .skills-section .automation-item:hover,
+    .skills-section .dev-tool:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--primary-color);
+    }
 }
 
 .lang-icon {
@@ -2445,14 +2501,7 @@ body:not(.light-mode) .category-title i {
     border-radius: 12px;
     padding: 20px;
     text-align: center;
-    transition: all 0.3s ease;
     cursor: pointer;
-}
-
-.tech-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-color);
 }
 
 .tech-item i {
@@ -2483,12 +2532,6 @@ body:not(.light-mode) .category-title i {
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: all 0.3s ease;
-}
-
-.bi-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-xl);
 }
 
 .bi-icon {
@@ -2524,7 +2567,7 @@ body:not(.light-mode) .category-title i {
 /* Engenharia & Automação */
 .automation-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 20px;
 }
 
@@ -2534,14 +2577,7 @@ body:not(.light-mode) .category-title i {
     border-radius: 12px;
     padding: 20px;
     text-align: center;
-    transition: all 0.3s ease;
     cursor: pointer;
-}
-
-.automation-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-color);
 }
 
 .automation-item i {
@@ -2570,14 +2606,7 @@ body:not(.light-mode) .category-title i {
     border-radius: 12px;
     padding: 18px;
     text-align: center;
-    transition: all 0.3s ease;
     cursor: pointer;
-}
-
-.dev-tool:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-color);
 }
 
 .dev-tool i {
@@ -2615,7 +2644,7 @@ body:not(.light-mode) .category-title i {
     }
     
     .automation-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 15px;
     }
     
@@ -2652,5 +2681,90 @@ body:not(.light-mode) .category-title i {
         flex-direction: column;
         text-align: center;
         gap: 15px;
+    }
+}
+
+/* Experiência: lista com marcadores */
+.experience-details ul {
+    list-style: none;
+    margin: 0 0 25px;
+    padding: 0;
+}
+
+.experience-details li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 8px;
+    color: var(--text-light);
+    line-height: 1.7;
+    font-size: clamp(0.88rem, 0.9vw + 0.55rem, 1rem);
+}
+
+.experience-details li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0.75em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary-color);
+}
+
+.experience-details .role {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.experience-details .role h4 {
+    text-align: left;
+    margin: 0;
+}
+
+/* Repositório privado: aparece como rótulo, não como link morto */
+.project-private {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.project-private:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-dark);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Correção: o ícone do card CTA estava com position: fixed
+   e ficava preso no canto superior direito da página */
+.cta-header i {
+    position: static;
+}
+
+/* Correção: a animação "shimmer" estava definida várias vezes com
+   regras diferentes; o card CTA agora usa uma animação própria */
+@keyframes cta-shimmer {
+    0%   { left: -100%; }
+    50%  { left: 100%; }
+    100% { left: 100%; }
+}
+
+.cta-card::after {
+    animation: cta-shimmer 3s ease-in-out infinite;
+}
+
+/* Acessibilidade: respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+
+    .scroll-text {
+        opacity: 0.7;
     }
 }
